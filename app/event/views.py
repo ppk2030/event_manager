@@ -56,8 +56,8 @@ class BookTicketList(generics.ListAPIView):
     def get_queryset(self):
         user = self.request.user
         if user.is_staff:
-            return Booking.objects.all()
-        return Booking.objects.filter(event_user=user)
+            return Booking.objects.all().order_by('title')
+        return Booking.objects.filter(event_user=user).order_by('event__title')
 
 class BookTicketView(generics.CreateAPIView):
     """Create a new event in the system."""
